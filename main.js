@@ -7,6 +7,7 @@ const template = require("./templatePath");
 //Arguments
 const ComponentPath = args.component;
 const ComponentTemplatesPath = args.custom;
+const isJavascript = args.javascript;
 
 //Constants
 const root = utils.getRoot(process.cwd());
@@ -28,18 +29,18 @@ function main() {
 
   const componentName = ComponentPath.replace(/^.*\//, "");
   const generatedTemplates = templates.map((template) =>
-    template(componentName)
+    template(componentName, isJavascript)
   );
 
   //TODO que se pueda ignorar algunos templates (pasar por args)
-  //TODO mejorar los templates que ya estan
-  //TODO que se pueda elegir entre jsx y tsx
 
   generatedTemplates.forEach((template) => {
-    fs.writeFileSync(
-      `${rootPath}/${componentName}${template.extension}`,
-      template.content
-    );
+    if (template.shoudlCreate) {
+      fs.writeFileSync(
+        `${rootPath}/${componentName}${template.extension}`,
+        template.content
+      );
+    }
   });
 
   console.log("Successfully created component under: " + finalPath.green);

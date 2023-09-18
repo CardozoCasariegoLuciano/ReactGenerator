@@ -1,13 +1,12 @@
-module.exports = (componentName) => ({
-  content: `
-import React from "react";
+module.exports = (componentName, isJavascript) => ({
+  content: `import React from "react";
 import { render } from "@testing-library/react";
 
 import ${componentName} from "./${componentName}";
-import { ${componentName}Props } from "./${componentName}.types";
+${isJavascript ? "" : `import { ${componentName}Props } from "./${componentName}.types";`}
 
 describe("Test Component", () => {
-  let props: ${componentName}Props;
+  let props${`: ${componentName}Props`};
 
   beforeEach(() => {
     props = {
@@ -19,13 +18,14 @@ describe("Test Component", () => {
 
   it("should render foo text correctly", () => {
     props.foo = "harvey was here";
-    const { getByTestId } = renderComponent();
+    const { getByText } = renderComponent();
 
-    const component = getByTestId("${componentName}");
+    const component = getByText("${componentName}");
 
     expect(component).toHaveTextContent("harvey was here");
   });
 });
 `,
-  extension: `.test.tsx`,
+  extension: `${isJavascript ? ".test.jsx" : ".test.tsx"}`,
+  shoudlCreate: true
 });

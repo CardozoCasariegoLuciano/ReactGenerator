@@ -14,11 +14,12 @@ const argv = yargs
     demandOption: false,
     type: "string",
   })
-  .option("modo", {
-    alias: "m",
-    describe: "Modo de ejecución",
-    choices: ["lectura", "escritura"],
-    default: "lectura", // Valor por defecto si no se proporciona
+  .option("javascript", {
+    alias: "j",
+    describe: "Javascript or Typescript",
+    demandOption: false,
+    type: "boolean",
+    default: false,
   }).argv;
 
 module.exports = argv;

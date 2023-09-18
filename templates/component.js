@@ -1,17 +1,14 @@
-module.exports = (componentName) => ({
-  content: `
-import React from "react";
-
-import { ${componentName}Props } from "./${componentName}.types";
-
+module.exports = (componentName, isJavascript) => ({
+  content: `import React from "react";
 import "./${componentName}.css";
+${isJavascript ? "" : `import { ${componentName}Props } from "./${componentName}.types";`}
 
-const ${componentName}: React.FC<${componentName}Props> = ({ foo }) => (
-    <div data-testid="${componentName}" className="foo-bar">{foo}</div>
+const ${componentName}= ({ foo }${isJavascript ? "" : `: ${componentName}Props`}) => (
+    <div className="foo-bar">{foo}</div>
 );
 
-export default ${componentName};
+export default ${componentName};`,
 
-`,
-  extension: `.tsx`,
+  extension: `${isJavascript ? ".jsx" : ".tsx"}`,
+  shoudlCreate: true
 });

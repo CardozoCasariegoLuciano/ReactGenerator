@@ -1,8 +1,8 @@
 module.exports = (componentName) => ({
-  content: `
-.foo-bar {
-  color: var(--harvey-green);
+  content: `.foo-bar {
+  color: blue;
 }
 `,
   extension: `.css`,
+  shoudlCreate: true
 });
