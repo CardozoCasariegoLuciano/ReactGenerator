@@ -32,10 +32,11 @@ function main() {
     template(componentName, isJavascript)
   );
 
-  //TODO que se pueda ignorar algunos templates (pasar por args)
-
   generatedTemplates.forEach((template) => {
-    if (template.shoudlCreate) {
+    if (
+      template.shoudlCreate &&
+      utils.ignoreByflag(args, template)
+    ) {
       fs.writeFileSync(
         `${rootPath}/${componentName}${template.extension}`,
         template.content

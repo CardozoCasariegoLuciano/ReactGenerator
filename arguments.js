@@ -20,6 +20,20 @@ const argv = yargs
     demandOption: false,
     type: "boolean",
     default: false,
+  })
+  .option("skipStory", {
+    alias: "S",
+    describe: "No genera el archivo .stosy",
+    demandOption: false,
+    type: "boolean",
+    default: false,
+  })
+  .option("skipTest", {
+    alias: "T",
+    describe: "No genera el archivo .test",
+    demandOption: false,
+    type: "boolean",
+    default: false,
   }).argv;
 
 module.exports = argv;

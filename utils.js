@@ -29,6 +29,18 @@ function getRoot(path, deep) {
   }
 }
 
+function ignoreByflag(args, template) {
+  const ignoreTest = args.skipTest;
+  const ignoreStories = args.skipStory;
+  const extension = template.extension;
+
+  if (ignoreTest && extension.includes("test")) return false;
+  if (ignoreStories && extension.includes("stories")) return false;
+
+  return true;
+}
+
 module.exports = {
   getRoot,
+  ignoreByflag,
 };
